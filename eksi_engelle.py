@@ -8,19 +8,18 @@
 # command prompt parameter read, 
 # cursor integration
 
+
 from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.options import Options
 
 # TODO: imput from command line
 
-USERNAME = input("email adresi : ")
-PASSWORD = input("password : ")
-TARGET_SUSER = input('target suser :')
+
 
 URL_LOGIN = 'https://eksisozluk.com/giris?'
 URL_SUSER = 'https://eksisozluk.com/biri/'
 
-class eksi_engelle():
+class eksi_engelle:
     
     def __init__(self):
         super().__init__()
@@ -34,25 +33,30 @@ class eksi_engelle():
         #self.target_suser = TARGET_SUSER
         #self.suser = []
         
-    def log_in(self):
-        #todo login
+    def login(self,USERNAME,PASSWORD):
+        #todo login:
         self.browser.get(URL_LOGIN)
         self.browser.find_element_by_id('username').send_keys(USERNAME)  # login
         self.browser.find_element_by_id('password').send_keys(PASSWORD)  # password
         self.browser.find_element_by_css_selector('button.btn.btn-primary.btn-lg.btn-block').click()
 
-    def log_out(self):
+        return True
+
+    def logout(self):
         #todo logout
         # pop up menu
         self.browser.find_element_by_css_selector('#options-dropdown > a:nth-child(1)').click()
         # terk link
         self.browser.find_element_by_css_selector('li.separated:nth-child(6) > a:nth-child(1)').click()
+    
+    def close(self):
+        self.browser.close()
 
     def collectFavs(self):
         #self.browser.find_element_by_xpath() # todo second parameter of run command
         #suser main page
         #self.browser.get('https://eksisozluk.com/biri/marlon-brandonun-kedisi')
-        self.browser.get(URL_SUSER + TARGET_SUSER)
+        self.browser.get(URL_SUSER + self.target_suser)
         #suser fav page
         self.browser.find_element_by_xpath('/html/body/div[2]/div[2]/div[2]/section/div[3]/ul/li[2]/a').click()
         #suser faved entrys favs
@@ -97,8 +101,4 @@ class eksi_engelle():
         # close susers tab
         browser.close()
 
-if __name__ == "__main__":
-    run = eksi_engelle()
-    run.log_in()
-    run.log_out()
     
