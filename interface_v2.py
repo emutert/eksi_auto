@@ -17,7 +17,7 @@ login_status = False
 def main():
     global login_status
     session = PromptSession()
-    print('Eksi Suserler ENGELLE V2')
+    print('Eksi Suser Engelle')
     print('Browser is initializing...')
     
     engelle = eksi_engelle()

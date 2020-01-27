@@ -1,21 +1,18 @@
 """
- Entry favorileyen tüm suserler için otomatik olarak engelle ve başlaklarını engelle 
- istekleri gönderilir.
+    Entry favorileyen tüm suserler için otomatik olarak engelle ve 
+    başlaklarını engelle istekleri gönderilir.
 """
 
 # Todo: 
 # error handling, 
-# command prompt parameter read, 
-
+# blockedSuserList() will return blocekd susers and total count
+# headless will set to true 
 
 
 from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.options import Options
 from selenium.common.exceptions import NoSuchElementException
 from time import sleep
-
-# TODO: imput from command line
-
 
 
 URL_LOGIN = 'https://eksisozluk.com/giris?'
@@ -70,12 +67,12 @@ class eksi_engelle:
 
     def bySuser(self,suser):
         #suser main page
-        #self.browser.get('https://eksisozluk.com/biri/marlon-brandonun-kedisi')
-        self.browser.get(URL_SUSER + self.target_suser)
+        self.browser.get(URL_SUSER + suser)
         self.browser.implicitly_wait(10)
-        self.bEngelle()
         sleep(5)
         self.engelle()
+        sleep(5)
+        self.bEngelle()     
 
 
     def collectFavs(self):
@@ -91,15 +88,26 @@ class eksi_engelle:
 
     def engelle(self):
         #engelle butonu click
+        sleep(5)
         self.browser.find_element_by_xpath('//*[@id="blocked-link"]').click()
         self.browser.implicitly_wait(10)
         
+        
     def bEngelle(self):
         #baslıklarını engelle click
+        sleep(5)
         self.browser.find_element_by_id('blocked-index-title-link').click()
         self.browser.implicitly_wait(10)
 
     def runEngelleToCollectedUsers(self,suserCollection):
+        """Gets Suser list, opens each susers page in new tab and performs 
+        blocking actions.
+
+            Parameters
+            ----------
+            suserCollection : []
+                list of the susers.
+        """
         for suser in suserCollection:
             # open susers page in new tab
             new_url = URL_SUSER + suser
@@ -108,25 +116,21 @@ class eksi_engelle:
 
             # change tab
             self.browser.switch_to.window(self.browser.window_handles[1])
-            
+
             # engelle 
-            #engelle = browser.find_element_by_id('blocked-link')
-            #self.engelle(engelle)
             self.engelle()
             self.browser.implicitly_wait(10)
 
-            #baslikEngelle = browser.find_element_by_id('blocked-index-title-link')
-            #self.bEngelle(baslikEngelle)
+            # baskıları engelle 
             self.bEngelle()
             self.browser.implicitly_wait(10)
+            
 
             # return to main tab
             self.browser.switch_to.window(self.browser.window_handles[0])
 
-        # log out 
-        #self.logout()
         # close susers tab
-        #self.close()
+        self.close()
 
     def blockedSuserList():
-        pass
+         self.browser.get(URL_BLOCAKED)
