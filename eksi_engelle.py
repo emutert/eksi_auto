@@ -124,13 +124,15 @@ class eksi_engelle:
             # baskıları engelle 
             self.bEngelle()
             self.browser.implicitly_wait(10)
-            
+
+            # close susers tab
+            self.close()            
 
             # return to main tab
             self.browser.switch_to.window(self.browser.window_handles[0])
 
-        # close susers tab
-        self.close()
 
     def blockedSuserList():
+        # Blocked susers 
+        #todo : statsitics will use for blocked susers , will decide later    
          self.browser.get(URL_BLOCAKED)
