@@ -39,11 +39,11 @@ def main():
             value = text.split()[1]
             # command Suser 
             if  command== 'Suser':
-                print('You entered:', value)
                 engelle.bySuser(value)
+                print('Suser:', value, ' Blocked')
             #command EntryNo
             elif command == 'EntryNo':
-                print('You entered:', value)
+                print('EntryNo:', value, ' Susers are Blocking')
                 engelle.byEntry(value)
             #command Blocked_List
             elif command == 'Blocked_list':

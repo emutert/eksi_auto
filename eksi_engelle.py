@@ -26,7 +26,7 @@ class eksi_engelle:
         super().__init__()
         opts = Options()
         #todo: headles true ?
-        opts.headless = False
+        opts.headless = True
         self.browser = Firefox(options = opts)
         # todo first parameter of run command
         
@@ -39,8 +39,7 @@ class eksi_engelle:
         self.browser.find_element_by_css_selector('button.btn.btn-primary.btn-lg.btn-block').click()
         try :
             self.browser.find_element_by_css_selector('#login-form-container')
-        except NoSuchElementException :
-            
+        except NoSuchElementException :  
             return True
         else:
             return False
@@ -89,15 +88,30 @@ class eksi_engelle:
     def engelle(self):
         #engelle butonu click
         sleep(5)
-        self.browser.find_element_by_xpath('//*[@id="blocked-link"]').click()
-        self.browser.implicitly_wait(10)
-        
+        try:
+
+            self.browser.find_element_by_xpath('//*[@id="blocked-link"]').click()
+            self.browser.implicitly_wait(10)
+
+        except NoSuchElementException:
+
+            return 'NoSuchElementException'
+        else :
+
+            return 'Blocked'
         
     def bEngelle(self):
         #baslıklarını engelle click
         sleep(5)
-        self.browser.find_element_by_id('blocked-index-title-link').click()
-        self.browser.implicitly_wait(10)
+        try:
+
+            self.browser.find_element_by_id('blocked-index-title-link').click()
+            self.browser.implicitly_wait(10)
+        except  NoSuchElementException:
+
+            return 'NoSuchElementException'
+        else:
+            return 'B-Blocked'
 
     def runEngelleToCollectedUsers(self,suserCollection):
         """Gets Suser list, opens each susers page in new tab and performs 
