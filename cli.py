@@ -1,5 +1,5 @@
 """
-    eksi_engelle user command prompt user interface
+    eksi_engelle command prompt user interface
 """
 
 from __future__ import unicode_literals
@@ -59,7 +59,8 @@ def main():
             break
 
     engelle.logout()
-    engelle.close()
+    # close() changed to quit() 
+    engelle.quit()
     login_status = False
     print('GoodBye!')
 

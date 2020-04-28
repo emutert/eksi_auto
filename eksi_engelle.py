@@ -11,6 +11,9 @@
 
 from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from time import sleep
 
@@ -55,6 +58,10 @@ class eksi_engelle:
         #close browser
         self.browser.close()
 
+    def quit(self):
+        #quit terminates webdriver session
+        self.browser.quit()
+
     def byEntry(self,value):
         # entry main page
         self.browser.get(URL_ENTRY + value)
@@ -78,7 +85,14 @@ class eksi_engelle:
         ##suser fav page
         ##self.browser.find_element_by_xpath('/html/body/div[2]/div[2]/div[2]/section/div[3]/ul/li[2]/a').click()
         #fav icon click
-        self.browser.find_element_by_css_selector('a.toggles:nth-child(2)').click()
+        #
+        ##selenium.common.exceptions.ElementClickInterceptedException: 
+        # Message: Element <a class="favorite-count toggles"> 
+        # is not clickable at point (491,684) 
+        # because another element <div class="toast-bottom-content"> obscures it
+        # Fix WebDriverWait added
+        WebDriverWait(self.browser, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR,'a.toggles:nth-child(2)'))).click()
+        #self.browser.find_element_by_css_selector('a.toggles:nth-child(2)').click()
         #faved suser list 
         collection = self.browser.find_element_by_css_selector('div.toggles-menu:nth-child(3)')
 
