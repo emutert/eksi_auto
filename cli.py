@@ -9,7 +9,7 @@ from getpass import getpass
 from eksi_engelle import eksi_engelle
 
 #Commands
-commands = WordCompleter(['EntryNo','Suser','Blocked_list'], ignore_case=True)
+commands = WordCompleter(['EntryNo','Suser','Blocked Count'], ignore_case=True)
 
 
 login_status = False
@@ -34,9 +34,18 @@ def main():
                     login_status = True
                 else:
                     print('Login Failed')
-            text = session.prompt('>',completer=commands)
-            command = text.split()[0]
-            value = text.split()[1]
+
+            try:
+                text = session.prompt('>',completer=commands)
+                command = text.split()[0]
+                value = text.split()[1]
+
+            except IndexError:
+                print('S for Suser ')
+                print('E for EntryNo ')
+                print('B for Blocked Count ')
+                continue
+
             # command Suser 
             if  command== 'Suser':
                 engelle.bySuser(value)
@@ -46,8 +55,9 @@ def main():
                 print('EntryNo:', value, ' Susers are Blocking')
                 engelle.byEntry(value)
             #command Blocked_List
-            elif command == 'Blocked_list':
-                pass
+            elif command == 'Blocked':
+                print(engelle.blockedSuserList())
+
             #wrong command 
             else:
                 print('wrong command')
@@ -59,7 +69,7 @@ def main():
             break
 
     engelle.logout()
-    # close() changed to quit() 
+    engelle.close() 
     engelle.quit()
     login_status = False
     print('GoodBye!')
