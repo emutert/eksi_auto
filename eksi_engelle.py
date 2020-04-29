@@ -31,7 +31,7 @@ class eksi_engelle:
         #todo: headles true ?
         opts.headless = True
         self.browser = Firefox(options = opts)
-        # todo first parameter of run command
+
         
     def login(self,USERNAME,PASSWORD):
         #todo login:
@@ -47,11 +47,16 @@ class eksi_engelle:
         else:
             return False
 
+    def popupClick(self):
+        # pop up menu
+        self.browser.find_element_by_css_selector('#options-dropdown > a:nth-child(1)').click()
+
+
     def logout(self):
         #todo logout
         # pop up menu
-        self.browser.find_element_by_css_selector('#options-dropdown > a:nth-child(1)').click()
-        # terk link
+        self.popupClick()
+        # terk button
         self.browser.find_element_by_css_selector('li.separated:nth-child(6) > a:nth-child(1)').click()
     
     def close(self):
@@ -83,20 +88,24 @@ class eksi_engelle:
 
     def collectFavs(self):
         ##suser fav page
-        ##self.browser.find_element_by_xpath('/html/body/div[2]/div[2]/div[2]/section/div[3]/ul/li[2]/a').click()
-        #fav icon click
+
         #
         ##selenium.common.exceptions.ElementClickInterceptedException: 
         # Message: Element <a class="favorite-count toggles"> 
         # is not clickable at point (491,684) 
         # because another element <div class="toast-bottom-content"> obscures it
         # Fix WebDriverWait added
-        WebDriverWait(self.browser, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR,'a.toggles:nth-child(2)'))).click()
+        WebDriverWait(self.browser, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR,'a.toggles:nth-child(2)'))).click()
         #self.browser.find_element_by_css_selector('a.toggles:nth-child(2)').click()
+        
+        #Caylak susers collecyion
+        WebDriverWait(self.browser, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR,'#show-caylak-favs-link'))).click()
+
         #faved suser list 
         collection = self.browser.find_element_by_css_selector('div.toggles-menu:nth-child(3)')
 
         susers = collection.text[0:(collection.text.find('\n.'))].replace(' ', '-').replace('@','').split()
+        
         return susers
 
     def engelle(self):
@@ -160,7 +169,18 @@ class eksi_engelle:
             self.browser.switch_to.window(self.browser.window_handles[0])
 
 
-    def blockedSuserList():
+    def blockedSuserList(self):
         # Blocked susers 
-        #todo : statsitics will use for blocked susers , will decide later    
-         self.browser.get(URL_BLOCAKED)
+
+        # pop up menu
+        self.popupClick()
+
+        # takip/engellenmis button
+        self.browser.find_element_by_css_selector('.open > li:nth-child(5) > a:nth-child(1)').click()
+
+        #Return Blocked Count
+        #WebDriverWait(self.browser, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR,'#show-caylak-favs-link'))).click()
+        self.browser.implicitly_wait(10)
+        return self.browser.find_element_by_css_selector('div.relation-block:nth-child(4) > p:nth-child(2)').text
+      
+    

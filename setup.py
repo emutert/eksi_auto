@@ -20,8 +20,8 @@ setuptools.setup(
     python_requires='>=3.7',
     py_modules=['cli','eksi_engelle'],
     install_requires=[
-        'selenium',
-        'prompt_toolkit',
+        'selenium=>3.141.0',
+        'prompt_toolkit=>3.0.5',
         
     ],
      entry_points='''
