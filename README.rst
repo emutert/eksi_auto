@@ -12,8 +12,6 @@ Project Structure
 
 - blocks spesific suser.
 
-
-
 Virtualenv
 ~~~~~~~~~~
 
@@ -48,7 +46,7 @@ You can deactivate the virtual environment with the following command:
 Please remember that you may have to reactivate the virtual environment if you
 open a new Terminal or Command Prompt window, or restart your system.
 
-Dependencies and Python Libraries
+Dependencies and Installation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - FireFox 76.0.1 
@@ -82,7 +80,7 @@ After eksi-engelle installation completed and geckodriver copied to correct fold
 
 .. code-block:: sh
   
-    $eksi-engelle
+    $eksi-engelle 
 
 You can use eksi-engelle cli after your authentication completed. 
 
@@ -93,7 +91,7 @@ You can use eksi-engelle cli after your authentication completed.
         You need to Login
         email    :your@mail.com
         password :
-        >EntryNo XXXXXXX
+        
 
 You can use tab key to complete the command after first character as shown in below. 
 
@@ -112,10 +110,19 @@ closes all the browser windows and terminates the WebDriver session.
             Eksi Suser Engelle
             Browser is initializing...
             You need to Login
-            email    :your@mail.com
-            password :
-            >EntryNo XXXXXXX
-            Users are blocking
+            email    : your@mail.com
+            password : 
+            Login successful
+            >                                                                                                                                                
+            S + tab for Suser 
+            E + tab for EntryNo 
+            B + tab for Blocked Count 
+            >EntryNo xxxx                                                                                                                               
+            Fav list is blocking
+            >EntryNo yyyy                                                                                                                               
+            Fav list is blocking
+            >Blocked Count
+            >***** engellenmiş.
             >
             GoodBye!
             $
