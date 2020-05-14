@@ -1,10 +1,10 @@
 import setuptools
 
-with open("README.md", "r") as fh:
+with open("README.rst", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="suser_engelle", # Replace with your own username
+    name="eksi-engelle", # Replace with your own username
     version="0.0.1",
     author="emutert",
     description="enty favlayan tüm suserleri engeller",
@@ -26,6 +26,6 @@ setuptools.setup(
     ],
      entry_points='''
         [console_scripts]
-        suser_engelle = cli:main
+        eksi-engelle = cli:main
     ''',
 )
