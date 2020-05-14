@@ -37,11 +37,11 @@ class eksi_engelle:
         #todo login:
 
         self.browser.get(URL_LOGIN)
-        self.browser.find_element_by_id('username').send_keys(USERNAME)  # login
-        self.browser.find_element_by_id('password').send_keys(PASSWORD)  # password
-        self.browser.find_element_by_css_selector('button.btn.btn-primary.btn-lg.btn-block').click()
+        self.browser.find_element(By.ID,value='username').send_keys(USERNAME)  # login
+        self.browser.find_element(By.ID,value='password').send_keys(PASSWORD)  # password
+        self.browser.find_element(By.CSS_SELECTOR, value='button.btn.btn-primary.btn-lg.btn-block').click()
         try :
-            self.browser.find_element_by_css_selector('#login-form-container')
+            self.browser.find_element(By.CSS_SELECTOR, value='#login-form-container')
         except NoSuchElementException :  
             return True
         else:
@@ -49,7 +49,7 @@ class eksi_engelle:
 
     def popupClick(self):
         # pop up menu
-        self.browser.find_element_by_css_selector('#options-dropdown > a:nth-child(1)').click()
+        self.browser.find_element(By.CSS_SELECTOR, value='#options-dropdown > a:nth-child(1)').click()
 
 
     def logout(self):
@@ -57,7 +57,7 @@ class eksi_engelle:
         # pop up menu
         self.popupClick()
         # terk button
-        self.browser.find_element_by_css_selector('li.separated:nth-child(6) > a:nth-child(1)').click()
+        self.browser.find_element(By.CSS_SELECTOR, value='li.separated:nth-child(6) > a:nth-child(1)').click()
     
     def close(self):
         #close browser
@@ -102,7 +102,7 @@ class eksi_engelle:
         WebDriverWait(self.browser, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR,'#show-caylak-favs-link'))).click()
 
         #faved suser list 
-        collection = self.browser.find_element_by_css_selector('div.toggles-menu:nth-child(3)')
+        collection = self.browser.find_element(By.CSS_SELECTOR, value='div.toggles-menu:nth-child(3)')
 
         susers = collection.text[0:(collection.text.find('\n.'))].replace(' ', '-').replace('@','').split()
         
@@ -113,7 +113,7 @@ class eksi_engelle:
         sleep(5)
         try:
 
-            self.browser.find_element_by_xpath('//*[@id="blocked-link"]').click()
+            self.browser.find_element(By.XPATH, value='//*[@id="blocked-link"]').click()
             self.browser.implicitly_wait(10)
 
         except NoSuchElementException:
@@ -128,7 +128,7 @@ class eksi_engelle:
         sleep(5)
         try:
 
-            self.browser.find_element_by_id('blocked-index-title-link').click()
+            self.browser.find_element(By.ID, value='blocked-index-title-link').click()
             self.browser.implicitly_wait(10)
         except  NoSuchElementException:
 
@@ -176,11 +176,11 @@ class eksi_engelle:
         self.popupClick()
 
         # takip/engellenmis button
-        self.browser.find_element_by_css_selector('.open > li:nth-child(5) > a:nth-child(1)').click()
+        self.browser.find_element(By.CSS_SELECTOR, value='.open > li:nth-child(5) > a:nth-child(1)').click()
 
         #Return Blocked Count
         #WebDriverWait(self.browser, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR,'#show-caylak-favs-link'))).click()
         self.browser.implicitly_wait(10)
-        return self.browser.find_element_by_css_selector('div.relation-block:nth-child(4) > p:nth-child(2)').text
+        return self.browser.find_element(By.CSS_SELECTOR, value='div.relation-block:nth-child(4) > p:nth-child(2)').text
       
     

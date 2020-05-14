@@ -8,8 +8,9 @@ from prompt_toolkit.completion import WordCompleter
 from getpass import getpass
 from eksi_engelle import eksi_engelle
 
+
 #Commands
-commands = WordCompleter(['EntryNo','Suser','Blocked Count'], ignore_case=True)
+commands = WordCompleter(['EntryNo ','Suser ','Blocked Count'], ignore_case=True)
 
 
 login_status = False
@@ -26,7 +27,7 @@ def main():
         try:
             while login_status == False:
                 print('You need to Login')
-                USERNAME = input("email adresi : ")
+                USERNAME = input("email    : ")
                 PASSWORD = getpass("password : ")
                 
                 if engelle.login(USERNAME,PASSWORD) == True:
@@ -41,18 +42,18 @@ def main():
                 value = text.split()[1]
 
             except IndexError:
-                print('S for Suser ')
-                print('E for EntryNo ')
-                print('B for Blocked Count ')
+                print('S + tab for Suser ')
+                print('E + tab for EntryNo ')
+                print('B + tab for Blocked Count ')
                 continue
 
             # command Suser 
             if  command== 'Suser':
                 engelle.bySuser(value)
-                print('Suser:', value, ' Blocked')
+                print( value, ' is blocking')
             #command EntryNo
             elif command == 'EntryNo':
-                print('EntryNo:', value, ' Susers are Blocking')
+                print( 'Fav list is blocking')
                 engelle.byEntry(value)
             #command Blocked_List
             elif command == 'Blocked':
@@ -64,12 +65,14 @@ def main():
                 print('You entered:', text.split()[1])
 
         except KeyboardInterrupt:
-            continue
+            break
         except EOFError:
             break
 
-    engelle.logout()
-    engelle.close() 
+    if login_status == True:
+        engelle.logout()
+        engelle.close() 
+    
     engelle.quit()
     login_status = False
     print('GoodBye!')
